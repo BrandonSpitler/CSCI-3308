@@ -9,7 +9,7 @@ AverageScore=0
 firstName="Brandon"
 lastName="Spitler"
 studentNumber=9999999
-for line in `cat $1`;
+(for line in `cat $1`;
 do	
 	if [ $scoreCount -le 2 ]
 	then
@@ -35,5 +35,6 @@ do
 		scoreCount=1
 		studentNumber=$line
 	fi		
-done | sort -t $" " -k 3,4 > testFile.txt
+doneecho $AverageScore" ["$studentNumber"] "$lastName", "$firstName) | sort -t $" " -k 3,4 > testFile.txt
+
 
