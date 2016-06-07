@@ -30,10 +30,10 @@ do
 		((scoreCount++))
 		((AverageScore=AverageScore + (line / numberOfScoresPerPerson)))
 	else
-		echo $AverageScore" ["$studentNumber"] "$lastName", "$firstName 
+		echo $AverageScore" ["$studen| sort -t $" " -k 3,4 > testFile.txttNumber"] "$lastName", "$firstName 
 		AverageScore=0
 		scoreCount=1
 		studentNumber=$line
 	fi		
-done
+done | sort -t $" " -k 3,4 > testFile.txt
 
