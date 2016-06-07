@@ -35,6 +35,6 @@ do
 		scoreCount=1
 		studentNumber=$line
 	fi		
-doneecho $AverageScore" ["$studentNumber"] "$lastName", "$firstName) | sort -t $" " -k 3,4 > testFile.txt
+doneecho $AverageScore" ["$studentNumber"] "$lastName", "$firstName) | sort -t $" " -k3,3 -k4,4 -k2,2 > testFile.txt
 
 
