@@ -1,0 +1,22 @@
+#!/bin/bash
+#Brandon Spitler- nick- ynyu
+if [ $# -eq 0 ]
+then
+        echo Usage: RegexAnswers.sh filename
+fi
+
+egrep [0-9]$ $1 | wc -l
+
+egrep -v ^[aeuioAEIOU] $1 | wc -l
+
+egrep ^[a-zA-Z]{12}$ $1 | wc -l
+
+egrep [0-9]{3}-[0-9]{3}-[0-9]{4}[^0-9]? $1 | wc -l
+
+egrep 303-[0-9]{3}-[0-9]{4}[^0-9]? $1 | wc -l
+
+egrep ^[a,e,i,u,o,A,E,I,O,U].*+[0-9]$ $1 | wc -l
+
+egrep @geocities[\.]com $1 | wc -l
+
+egrep .+[@].+ $1 |egrep [\.][\.]\|[' ',\:,\;,\(,\),\>,\<,\\,\,\[]\|[@][@]\|[\.]$\|]\|.+[@][^.]+$| wc -l
