@@ -10,7 +10,7 @@ states_caps = {
         'AL':{'state':'Alabama',        'capital':'Montgomery'},
         'AK':{'state':'Alaska',         'capital':'Juneau'},
         'AZ':{'state':'Arizona',        'capital':'Phoenix'},
-        'AR':{'state':'Arkansas',       'capital':'Little Rock'},
+        'AR':{'state':'Arkansas',       'capital':'Little%20Rock'},
         'CA':{'state':'California',     'capital':'Sacramento'},
         'CO':{'state':'Colorado',       'capital':'Denver'},
         'CT':{'state':'Connecticut',    'capital':'Hartford'},
@@ -21,28 +21,28 @@ states_caps = {
         'ID':{'state':'Idaho',          'capital':'Boise'},
         'IL':{'state':'Illinois',       'capital':'Springfield'},
         'IN':{'state':'Indiana',        'capital':'Indianapolis'},
-        'IA':{'state':'Iowa',           'capital':'Des Moines'},
+        'IA':{'state':'Iowa',           'capital':'Des%20Moines'},
         'KS':{'state':'Kansas',         'capital':'Topeka'},
         'KY':{'state':'Kentucky',       'capital':'Frankfort'},
-        'LA':{'state':'Louisiana',      'capital':'Baton Rouge'},
+        'LA':{'state':'Louisiana',      'capital':'Baton%20Rouge'},
         'ME':{'state':'Maine',          'capital':'Augusta'},
         'MD':{'state':'Maryland',       'capital':'Annapolis'},
         'MA':{'state':'Massachusetts',  'capital':'Boston'},
         'MI':{'state':'Michigan',       'capital':'Lansing'},
-        'MN':{'state':'Minnesota',      'capital':'Saint Paul'},
+        'MN':{'state':'Minnesota',      'capital':'Saint%20Paul'},
         'MS':{'state':'Mississippi',    'capital':'Jackson'},
-        'MO':{'state':'Missouri',       'capital':'Jefferson City'},
+        'MO':{'state':'Missouri',       'capital':'Jefferson%20City'},
         'MT':{'state':'Montana',        'capital':'Helena'},
         'NE':{'state':'Nebraska',       'capital':'Lincoln'},
-        'NV':{'state':'Nevada',         'capital':'Carson City'},
+        'NV':{'state':'Nevada',         'capital':'Carson%20City'},
         'NH':{'state':'New Hampshire',  'capital':'Concord'},
         'NJ':{'state':'New Jersey',     'capital':'Trenton'},
-        'NM':{'state':'New Mexico',     'capital':'Santa Fe'},
+        'NM':{'state':'New Mexico',     'capital':'Santa%20Fe'},
         'NY':{'state':'New York',       'capital':'Albany'},
         'NC':{'state':'North Carolina', 'capital':'Raleigh'},
         'ND':{'state':'North Dakota',   'capital':'Bismarck'},
         'OH':{'state':'Ohio',           'capital':'Columbus'},
-        'OK':{'state':'Oklahoma',       'capital':'Oklahoma City'},
+        'OK':{'state':'Oklahoma',       'capital':'Oklahoma%20City'},
         'OR':{'state':'Oregon',         'capital':'Salem'},
         'PA':{'state':'Pennsylvania',   'capital':'Harrisburg'},
         'RI':{'state':'Rhode Island',   'capital':'Providence'},
@@ -50,7 +50,7 @@ states_caps = {
         'SD':{'state':'South Dakota',   'capital':'Pierre'},
         'TN':{'state':'Tennessee',      'capital':'Nashville'},
         'TX':{'state':'Texas',          'capital':'Austin'},
-        'UT':{'state':'Utah',           'capital':'Salt Lake City'},
+        'UT':{'state':'Utah',           'capital':'Salt%20Lake%20City'},
         'VT':{'state':'Vermont',        'capital':'Montpelier'},
         'VA':{'state':'Virginia',       'capital':'Richmond'},
         'WA':{'state':'Washington',     'capital':'Olympia'},
@@ -61,13 +61,14 @@ states_caps = {
 
 def getColor(temp):
 	tempFah=1.8*(temp-273)+32
+	#print tempFah
 	if tempFah<10:
 		return "Blue"
 	elif tempFah<30:
 		return "Cyan"
 	elif tempFah<50:
 		return "Green"
-	elif tempFah<80:
+	elif tempFah<70:
 		return "Orange"
 	else:
 		return "Red"
@@ -78,7 +79,8 @@ def getWeather(city):
 	try:
 		url = "http://openweathermap.org/data/2.1/forecast/city?q="
 		url += city
-		req = urllib2.Request(url)
+	
+		req = urllib2.Request("\'"+url+"\'")
 		response=urllib2.urlopen(req)
 	except Exception :
 		print("Error")	
@@ -174,22 +176,38 @@ contents='''
 </svg>'''
 
 print contents
-data=json.loads(getWeather("Boulder"))
+#data=json.loads(getWeather("Boulder"))
 #data=unicode.normalize('NFKD',title).encode('ascii','ignore')
-data = byteify(data)
+#data = byteify(data)
 #print data
 
-#print "<br>"
+print "<br>"
+print "<br>"
+print "<br>"
 text=""
 for key in states_caps:
 #	print "<br>"
 #	print str(states_caps[key]['capital'])
-	data=json.loads(getWeather("\""+states_caps[key]['capital']+"\""))
+	#data=json.loads(getWeather("\""+states_caps[key]['capital']+"\"")
+        url = "http://api.openweathermap.org/data/2.5/weather?q="
+        url += states_caps[key]['capital']
+	
+	url += "&APPID=e3f1caf4760169a21927a0bf55b83939"
+        "<br>"
+	#print url
+	"<br>"
+
+        req = urllib2.urlopen(url)
+        #response=urllib2.urlopen(req)
+	data=req.read()
+       	data=json.loads(data)
+
 	#print data
 	data = byteify(data)
-	
-	temp=data['list'][3]['main']['temp']
-	#print temp
+	#print data
+	#print "<br>"
+	temp=data['main']['temp']
+        #print temp	
 	color=getColor(temp)
 	#print color
 	print '''
